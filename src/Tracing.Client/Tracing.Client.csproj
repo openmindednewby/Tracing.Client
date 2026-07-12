@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <RootNamespace>Tracing.Client</RootNamespace>
-    <PackageId>Tracing.Client</PackageId>
+    <PackageId>Dloizides.Tracing.Client</PackageId>
     <Description>Shared distributed tracing configuration with OpenTelemetry for all SaaS services. Auto-instruments ASP.NET Core, HttpClient, Entity Framework Core, and MassTransit.</Description>
   </PropertyGroup>
 
