@@ -12,3 +12,10 @@ artifacts/
 ## NuGet
 *.nupkg
 *.snupkg
+
+# Code coverage artifacts (coverlet.msbuild writes these next to the test project)
+coverage*.xml
+coverage*.json
+coverage*.info
+*.coverage
+*.coveragexml
