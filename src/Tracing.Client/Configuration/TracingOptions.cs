@@ -23,11 +23,7 @@ public sealed class TracingOptions
     public bool Enabled { get; set; } = true;
 
     /// <summary>
-    /// The OTLP exporter endpoint (e.g., "http://jaeger:4317").
-    /// When empty, traces are collected but not exported (no-op exporter).
-    /// Set via <c>Tracing:OtlpEndpoint</c> in appsettings or <c>Tracing__OtlpEndpoint</c> env var.
-    /// Note: <c>OTEL_EXPORTER_OTLP_ENDPOINT</c> is intentionally NOT read to avoid conflicts
-    /// with .NET Aspire's <c>UseOtlpExporter()</c>.
+    /// The OTLP endpoint; when empty, <c>OTEL_EXPORTER_OTLP_ENDPOINT</c> is used unless <c>UseOtlpExporter()</c> exports it.
     /// </summary>
     public string OtlpEndpoint { get; set; } = string.Empty;
 

@@ -6,6 +6,8 @@ using OpenTelemetry;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Tracing.Client.Configuration;
+using Tracing.Client.Exporting;
+using Tracing.Client.Responses;
 
 namespace Tracing.Client.Extensions;
 
@@ -46,8 +48,10 @@ public static class TracingServiceExtensions
             {
                 ConfigureSampler(tracing, options.SamplingRatio);
                 AddInstrumentation(tracing, options);
-                AddExporter(tracing, options, builder.Configuration);
+                AddExporter(tracing, options, builder.Configuration, builder.Services);
             });
+
+        TraceIdResponses.Register(builder.Services);
 
         return builder;
     }
@@ -55,13 +59,6 @@ public static class TracingServiceExtensions
     /// <summary>
     /// Builds the <see cref="TracingOptions"/> from configuration and programmatic overrides.
     /// </summary>
-    /// <remarks>
-    /// NOTE: The <c>OTEL_EXPORTER_OTLP_ENDPOINT</c> standard environment variable is intentionally
-    /// NOT applied here. Services that need it (e.g. those using .NET Aspire ServiceDefaults)
-    /// register <c>UseOtlpExporter()</c> separately. Applying it here would conflict with that
-    /// registration and cause a <see cref="NotSupportedException"/> at startup.
-    /// Set <c>Tracing:OtlpEndpoint</c> in appsettings or use a programmatic override instead.
-    /// </remarks>
     internal static TracingOptions BuildOptions(
         IConfiguration configuration,
         Action<TracingOptions>? configure)
@@ -135,11 +132,16 @@ public static class TracingServiceExtensions
     internal static void AddExporter(
         TracerProviderBuilder tracing,
         TracingOptions options,
-        IConfiguration configuration)
+        IConfiguration configuration,
+        IServiceCollection services)
     {
         var endpoint = options.OtlpEndpoint;
 
-        if (string.IsNullOrWhiteSpace(endpoint)) return;
+        if (string.IsNullOrWhiteSpace(endpoint))
+        {
+            StandardOtlpEndpoint.AddFallbackExporter(tracing, configuration, services);
+            return;
+        }
 
         tracing.AddOtlpExporter(otlp =>
         {
