@@ -8,7 +8,7 @@ namespace Tracing.Client.Tests;
 public sealed class TracingOptionsTests
 {
     [Fact]
-    public void Defaults_ServiceName_IsUnknown()
+    public void ServiceName_WithDefaults_IsUnknown()
     {
         var options = new TracingOptions();
 
@@ -16,7 +16,7 @@ public sealed class TracingOptionsTests
     }
 
     [Fact]
-    public void Defaults_Enabled_IsTrue()
+    public void Enabled_WithDefaults_IsTrue()
     {
         var options = new TracingOptions();
 
@@ -24,7 +24,7 @@ public sealed class TracingOptionsTests
     }
 
     [Fact]
-    public void Defaults_OtlpEndpoint_IsEmpty()
+    public void OtlpEndpoint_WithDefaults_IsEmpty()
     {
         var options = new TracingOptions();
 
@@ -32,7 +32,7 @@ public sealed class TracingOptionsTests
     }
 
     [Fact]
-    public void Defaults_SamplingRatio_IsOne()
+    public void SamplingRatio_WithDefaults_IsOne()
     {
         var options = new TracingOptions();
 
@@ -40,7 +40,7 @@ public sealed class TracingOptionsTests
     }
 
     [Fact]
-    public void Defaults_InstrumentEfCore_IsTrue()
+    public void InstrumentEfCore_WithDefaults_IsTrue()
     {
         var options = new TracingOptions();
 
@@ -48,7 +48,7 @@ public sealed class TracingOptionsTests
     }
 
     [Fact]
-    public void Defaults_InstrumentMassTransit_IsTrue()
+    public void InstrumentMassTransit_WithDefaults_IsTrue()
     {
         var options = new TracingOptions();
 
@@ -56,7 +56,7 @@ public sealed class TracingOptionsTests
     }
 
     [Fact]
-    public void Defaults_IncludeDbStatements_IsTrue()
+    public void IncludeDbStatements_WithDefaults_IsTrue()
     {
         var options = new TracingOptions();
 
@@ -64,7 +64,7 @@ public sealed class TracingOptionsTests
     }
 
     [Fact]
-    public void SectionName_IsTracing()
+    public void SectionName_WhenRead_IsTracing()
     {
         TracingOptions.SectionName.Should().Be("Tracing");
     }

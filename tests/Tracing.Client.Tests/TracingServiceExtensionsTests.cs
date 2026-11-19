@@ -60,7 +60,7 @@ public sealed class TracingServiceExtensionsTests
     }
 
     [Fact]
-    public void BuildOptions_ProgrammaticOverride_TakesPrecedenceOverConfig()
+    public void BuildOptions_WithProgrammaticOverride_TakesPrecedenceOverConfig()
     {
         var config = new ConfigurationBuilder()
             .AddInMemoryCollection(new Dictionary<string, string?>
@@ -78,7 +78,7 @@ public sealed class TracingServiceExtensionsTests
     }
 
     [Fact]
-    public void BuildOptions_OtelEnvVar_DoesNotOverrideOtlpEndpoint()
+    public void BuildOptions_WithOtelEnvVar_DoesNotOverrideOtlpEndpoint()
     {
         var config = new ConfigurationBuilder()
             .AddInMemoryCollection(new Dictionary<string, string?>
@@ -121,7 +121,7 @@ public sealed class TracingServiceExtensionsTests
     }
 
     [Fact]
-    public void BuildOptions_SamplingRatioClamped_AboveOne()
+    public void BuildOptions_WithSamplingRatioAboveOne_ClampsSamplingRatio()
     {
         var config = new ConfigurationBuilder()
             .AddInMemoryCollection(new Dictionary<string, string?>
@@ -136,7 +136,7 @@ public sealed class TracingServiceExtensionsTests
     }
 
     [Fact]
-    public void MassTransitActivitySource_HasExpectedValue()
+    public void MassTransitActivitySource_WhenRead_HasExpectedValue()
     {
         TracingServiceExtensions.MassTransitActivitySource.Should().Be("MassTransit");
     }

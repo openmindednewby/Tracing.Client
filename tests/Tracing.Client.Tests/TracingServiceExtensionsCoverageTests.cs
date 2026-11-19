@@ -29,7 +29,7 @@ public sealed class TracingServiceExtensionsCoverageTests
     }
 
     [Fact]
-    public void AddTracingDefaults_DefaultOptions_RegistersOpenTelemetryWithDefaults()
+    public void AddTracingDefaults_WithDefaultOptions_RegistersOpenTelemetryWithDefaults()
     {
         var builder = WebApplication.CreateBuilder();
 
@@ -43,7 +43,7 @@ public sealed class TracingServiceExtensionsCoverageTests
     }
 
     [Fact]
-    public void AddTracingDefaults_SamplingRatioHalf_UsesRatioBasedSampler()
+    public void AddTracingDefaults_WithSamplingRatioHalf_UsesRatioBasedSampler()
     {
         var builder = WebApplication.CreateBuilder();
         builder.Configuration.AddInMemoryCollection(new Dictionary<string, string?>
@@ -59,7 +59,7 @@ public sealed class TracingServiceExtensionsCoverageTests
     }
 
     [Fact]
-    public void AddTracingDefaults_SamplingRatioZero_UsesAlwaysOffSampler()
+    public void AddTracingDefaults_WithSamplingRatioZero_UsesAlwaysOffSampler()
     {
         var builder = WebApplication.CreateBuilder();
         builder.Configuration.AddInMemoryCollection(new Dictionary<string, string?>
@@ -75,7 +75,7 @@ public sealed class TracingServiceExtensionsCoverageTests
     }
 
     [Fact]
-    public void AddTracingDefaults_SamplingRatioAboveOne_ClampsToAlwaysOn()
+    public void AddTracingDefaults_WithSamplingRatioAboveOne_ClampsToAlwaysOn()
     {
         var builder = WebApplication.CreateBuilder();
         builder.Configuration.AddInMemoryCollection(new Dictionary<string, string?>
@@ -91,7 +91,7 @@ public sealed class TracingServiceExtensionsCoverageTests
     }
 
     [Fact]
-    public void AddTracingDefaults_SamplingRatioNegative_ClampsToAlwaysOff()
+    public void AddTracingDefaults_WithSamplingRatioNegative_ClampsToAlwaysOff()
     {
         var builder = WebApplication.CreateBuilder();
         builder.Configuration.AddInMemoryCollection(new Dictionary<string, string?>
@@ -156,7 +156,7 @@ public sealed class TracingServiceExtensionsCoverageTests
     }
 
     [Fact]
-    public void AddTracingDefaults_AllInstrumentationDisabled_OnlyAspNetCoreAndHttpClient()
+    public void AddTracingDefaults_WithAllInstrumentationDisabled_OnlyAspNetCoreAndHttpClient()
     {
         var builder = WebApplication.CreateBuilder();
         builder.Configuration.AddInMemoryCollection(new Dictionary<string, string?>
@@ -206,7 +206,7 @@ public sealed class TracingServiceExtensionsCoverageTests
     }
 
     [Fact]
-    public void AddTracingDefaults_OtelEnvVar_DoesNotConflictWithServiceDefaults()
+    public void AddTracingDefaults_WithOtelEnvVar_DoesNotConflictWithServiceDefaults()
     {
         var builder = WebApplication.CreateBuilder();
         builder.Configuration.AddInMemoryCollection(new Dictionary<string, string?>
@@ -222,7 +222,7 @@ public sealed class TracingServiceExtensionsCoverageTests
     }
 
     [Fact]
-    public void AddTracingDefaults_ChainReturnValue_AllowsFluentChaining()
+    public void AddTracingDefaults_WhenChained_AllowsFluentChaining()
     {
         var builder = WebApplication.CreateBuilder();
 
