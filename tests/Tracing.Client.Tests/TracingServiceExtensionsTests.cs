@@ -80,10 +80,6 @@ public sealed class TracingServiceExtensionsTests
     [Fact]
     public void BuildOptions_OtelEnvVar_DoesNotOverrideOtlpEndpoint()
     {
-        // OTEL_EXPORTER_OTLP_ENDPOINT is intentionally NOT applied by BuildOptions.
-        // Services that need standard OTLP env-var export use UseOtlpExporter() via
-        // ServiceDefaults, which would conflict with the signal-specific AddOtlpExporter.
-        // The Tracing:OtlpEndpoint config key is the intended mechanism here.
         var config = new ConfigurationBuilder()
             .AddInMemoryCollection(new Dictionary<string, string?>
             {
@@ -94,7 +90,6 @@ public sealed class TracingServiceExtensionsTests
 
         var options = TracingServiceExtensions.BuildOptions(config, null);
 
-        // The config-bound value is preserved; the env var is ignored by BuildOptions
         options.OtlpEndpoint.Should().Be("http://config-endpoint:4317");
     }
 
@@ -116,9 +111,6 @@ public sealed class TracingServiceExtensionsTests
     [Fact]
     public void ConfigureSampler_WithRatioOne_UsesAlwaysOnSampler()
     {
-        // AlwaysOnSampler is used when ratio >= 1.0
-        // We test this indirectly via BuildOptions since ConfigureSampler
-        // operates on TracerProviderBuilder which requires DI context.
         var config = new ConfigurationBuilder().Build();
         var options = TracingServiceExtensions.BuildOptions(config, opts =>
         {
@@ -140,8 +132,6 @@ public sealed class TracingServiceExtensionsTests
 
         var options = TracingServiceExtensions.BuildOptions(config, null);
 
-        // Clamping happens in ConfigureSampler, not BuildOptions.
-        // BuildOptions preserves the raw value from config binding.
         options.SamplingRatio.Should().Be(2.0);
     }
 
